@@ -25,7 +25,7 @@ export interface IBLEPrinter {
 export interface INetPrinter {
   device_name: string;
   host: string;
-  port: string;
+  port: number;
 }
 
 export const USBPrinter = {
@@ -123,11 +123,11 @@ export const NetPrinter = {
       )
     ),
 
-  connectPrinter: (host: string, port: string): Promise<INetPrinter> =>
+  connectPrinter: (host: string, port: number): Promise<INetPrinter> =>
     new Promise((resolve, reject) =>
       RNNetPrinter.connectPrinter(
         host,
-        port,
+        +port,
         (printer: INetPrinter) => resolve(printer),
         (error: Error) => reject(error)
       )
